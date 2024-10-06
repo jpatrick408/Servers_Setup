@@ -1,0 +1,15 @@
+---
+servers:
+  hosts:
+    jsgit:
+    jsspeedtest:
+    jsstreaming:
+    jsunifi:
+#    jsdocker:
+#    jsansible:
+#    jspterodactyl:
+
+#rpis:
+#  hosts:
+#    jsansible:
+#    jsunifi:
