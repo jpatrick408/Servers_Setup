@@ -1,6 +1,8 @@
 ---
-- hosts: jsspeedtest2
+- hosts: all
   become: true
+  gather_facts: no
+  ignore_unreachable: true
 
   tasks:
   - name: Setup speed test server
