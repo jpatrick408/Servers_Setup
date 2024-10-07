@@ -1,8 +1,8 @@
-vm_name: LibreSpeed-test
+vm_name: LibreSpeed2
 vm_template: Debian Bookworm 12
-vm_storage_size: 5
+vm_storage_size: 15
 vm_sr: Local Storage
-vm_core_count: 1
-vm_memory: 512
+vm_core_count: 2
+vm_memory: 1024
 vm_installer_iso: debian-12.4.0-amd64-netinst.iso
 vm_network: VLAN 25 (Default) SFP+

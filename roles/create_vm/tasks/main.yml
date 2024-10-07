@@ -1,5 +1,5 @@
 #Use -e xenserver_password=XXXX to assign the server pw
-
+#Use -e invoking_user=${USER} to get current username
 - ansible.builtin.include_vars: vmVars.yml
 
 - name: Create a VM from a template
@@ -12,7 +12,6 @@
     template: "{{ vm_template }}"
     disks:
     - size_gb: "{{ vm_storage_size }}"
-      sr: "{{ Local Storage }}"
     hardware:
       num_cpus: "{{ vm_core_count }}"
       memory_mb: "{{ vm_memory }}"
@@ -24,3 +23,38 @@
     wait_for_ip_address: true
   delegate_to: localhost
   register: deploy
+
+- name: Installing SSH Key
+  ansible.posix.authorized_key:
+    user: "{{ invoking_user }}"
+    state: present
+    key: "{{ lookup('file', '/home/jpatr/.ssh/jsAnsible.pub') }}"
+
+- name: Updating VM (Debian Based)
+  ansible.builtin.apt:
+    upgrade: dist
+    update_cache: yes
+  when:
+    - ansible_os_family == "Debian"
+
+- name: Updating VM (Fedora Based)
+  ansible.builtin.dnf:
+    name: "*"
+    update_only: yes
+    update_cache: yes
+    state: latest
+  when:
+    - ansible_os_family == "RedHat"
+
+- name: Check if a reboot is required.
+  tags: servers
+  ansible.builtin.stat:
+    path: /var/run/reboot-required
+    get_checksum: no
+  register: reboot_required_file-
+
+- name: Reboot the server (if required)
+  tags: servers
+  ansible.builtin.reboot:
+  when:
+    - reboot_required_file.stat.exists and reboot_required_file is defined

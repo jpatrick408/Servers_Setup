@@ -3,6 +3,7 @@ servers:
   hosts:
     jsgit:
     jsspeedtest:
+    jsspeedtest2:
     jsstreaming:
     jsunifi:
 #    jsdocker:

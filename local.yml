@@ -1,6 +1,5 @@
 ---
-- hosts: all
-  tags: servers
+- hosts: jsspeedtest2
   become: true
 
   tasks:
@@ -9,21 +8,29 @@
     import_role:
       name: speedtest_server
 
+#- hosts: jsstreaming
+#  become: true
 #    - name: Setup Jellyfin
 #      tags: jellyfin
 #      import_role:
 #        name: jellyfin_server
 
+#- hosts: jsdns
+#  become: true
 #    - name: Setup Pi-Hole
 #      tags: dns
 #      import_role:
 #        name: pihole_server
 
+#- hosts: jsgit
+#  become: true
 #    - name: Setup Gitea
 #      tags: git
 #      import_role:
 #        name: git_server
 
+#- hosts: jsunifi
+#  become: true
 #    - name: Setup Unifi Controller
 #      tags: unifi
 #      import_role:
